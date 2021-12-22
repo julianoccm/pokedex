@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 
-import { getPokemons, getPokemonByName } from "../api/PokeAPI";
+import { getPokemons, getBasicPokemonByName } from "../api/PokeAPI";
 
 let PAGE = 12;
 
@@ -20,7 +20,7 @@ const HomeScreen = ({ route }) => {
 
   useEffect(() => {
     if (search !== "") {
-      getPokemonByName(search).then((data) => {
+      getBasicPokemonByName(search).then((data) => {
         if (data !== undefined) {
           setPokemonsList([data]);
           setError("");
