@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
-  Image,
   FlatList,
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import PokeCard from "../components/PokeCard";
 
-import { getPokemons, getBasicPokemonByName } from "../api/PokeAPI";
+import { getBasicPokemonByNameId, getPokemonBasicOffset } from "../api/PokeAPI";
 
 let PAGE = 12;
 
@@ -27,7 +27,7 @@ const HomeScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (search !== "") {
-      getBasicPokemonByName(search.toLowerCase()).then((data) => {
+      getBasicPokemonByNameId(search.toLowerCase()).then((data) => {
         if (data !== undefined) {
           setPokemonsList([data]);
           setError("");
@@ -42,7 +42,9 @@ const HomeScreen = ({ route, navigation }) => {
       <TouchableOpacity
         style={{ backgroundColor: "#8259e3", padding: 10, margin: 8 }}
         onPress={() => {
-          getPokemons(PAGE).then((data) => setPokemonsList(data));
+          getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
+            setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+          });
           PAGE += 12;
         }}
       >
@@ -65,21 +67,20 @@ const HomeScreen = ({ route, navigation }) => {
       ) : null}
 
       <FlatList
+        numColumns={2}
         data={pokemonsList}
         keyExtractor={(pokemon) => pokemon.id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity
-              style={{ borderWidth: 2, margin: 8, padding: 5 }}
-              onPress={() => navigation.navigate("DetailsScreen", {nome: item.nome})}
-            >
-              <Text>{item.id}</Text>
-              <Text>{item.nome}</Text>
-              <Image
-                source={{ uri: item.sprite }}
-                style={{ width: 50, height: 50 }}
-              />
-            </TouchableOpacity>
+            <PokeCard
+              id={item.id}
+              nome={item.nome}
+              typeColor={item.typeColor}
+              urlImage={item.sprite}
+              onPress={() =>
+                navigation.navigate("DetailsScreen", { nome: item.nome })
+              }
+            />
           );
         }}
       />
