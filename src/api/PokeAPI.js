@@ -25,7 +25,6 @@ const getPokemons = (initial, limit = 12) => {
     });
   });
 };
-
 const getBasicPokemonByName = (pokemonName) => {
   return PokeAPI.get(pokemonName)
     .then((response) => {
@@ -41,9 +40,29 @@ const getBasicPokemonByName = (pokemonName) => {
     .catch((error) => {});
 };
 
+const getPokemonByName = (pokemonName) => {
+  return PokeAPI.get(pokemonName)
+    .then((response) => {
+      const pokemon = response.data;
+
+      return {
+        id: pokemon.id,
+        nome: pokemon.forms[0].name,
+        url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.forms[0].name,
+        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
+        tipo: pokemon.types[0].type,
+        peso: pokemon.weight,
+        altura: pokemon.height,
+        abilidade: pokemon.abilities,
+      };
+    })
+    .catch((error) => {});
+};
+
 module.exports = {
   getPokemons,
-  getBasicPokemonByName,
+  getPokemonByName,
+  getBasicPokemonByName
 };
 
 export default PokeAPI;
