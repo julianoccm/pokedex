@@ -21,6 +21,10 @@ const HomeScreen = ({ route }) => {
     if (search !== "") {
       getPokemonByName(search).then((data) => setPokemonsList([data]));
       setGoSearch(false);
+    } else if (search === "") {
+      setPokemonsList(route.params.pokemonsList);
+      setGoSearch(false);
+      PAGE = 12;
     }
   }, [goSearch]);
 
