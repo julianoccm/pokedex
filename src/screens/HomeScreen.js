@@ -12,7 +12,7 @@ import { getPokemons, getBasicPokemonByName } from "../api/PokeAPI";
 
 let PAGE = 12;
 
-const HomeScreen = ({ route }) => {
+const HomeScreen = ({ route, navigation }) => {
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [goSearch, setGoSearch] = useState(false);
@@ -34,7 +34,7 @@ const HomeScreen = ({ route }) => {
         } else setError("Pokemon não encontrado");
       });
       setGoSearch(false);
-    } 
+    }
   }, [goSearch]);
 
   return (
@@ -69,14 +69,17 @@ const HomeScreen = ({ route }) => {
         keyExtractor={(pokemon) => pokemon.id}
         renderItem={({ item }) => {
           return (
-            <View style={{ borderWidth: 2, margin: 8, padding: 5 }}>
+            <TouchableOpacity
+              style={{ borderWidth: 2, margin: 8, padding: 5 }}
+              onPress={() => navigation.navigate("DetailsScreen", {nome: item.nome})}
+            >
               <Text>{item.id}</Text>
               <Text>{item.nome}</Text>
               <Image
                 source={{ uri: item.sprite }}
                 style={{ width: 50, height: 50 }}
               />
-            </View>
+            </TouchableOpacity>
           );
         }}
       />
