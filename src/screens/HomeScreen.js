@@ -18,6 +18,13 @@ const HomeScreen = ({ route }) => {
   const [goSearch, setGoSearch] = useState(false);
   const [pokemonsList, setPokemonsList] = useState(route.params.pokemonsList);
 
+  const clearStates = () => {
+    setPokemonsList(route.params.pokemonsList);
+    setError("");
+    setGoSearch(false);
+    PAGE = 12;
+  };
+
   useEffect(() => {
     if (search !== "") {
       getBasicPokemonByName(search.toLowerCase()).then((data) => {
@@ -27,12 +34,7 @@ const HomeScreen = ({ route }) => {
         } else setError("Pokemon não encontrado");
       });
       setGoSearch(false);
-    } else if (search === "") {
-      setPokemonsList(route.params.pokemonsList);
-      setError("");
-      setGoSearch(false);
-      PAGE = 12;
-    }
+    } 
   }, [goSearch]);
 
   return (
@@ -49,7 +51,10 @@ const HomeScreen = ({ route }) => {
 
       <TextInput
         value={search}
-        onChangeText={setSearch}
+        onChangeText={(value) => {
+          setSearch(value);
+          if (value == "") clearStates();
+        }}
         onEndEditing={() => setGoSearch(true)}
         placeholder="Digite o nome do pokemon"
         style={{ backgroundColor: "grey", margin: 8, padding: 10 }}
