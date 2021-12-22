@@ -20,7 +20,7 @@ const HomeScreen = ({ route }) => {
 
   useEffect(() => {
     if (search !== "") {
-      getBasicPokemonByName(search).then((data) => {
+      getBasicPokemonByName(search.toLowerCase()).then((data) => {
         if (data !== undefined) {
           setPokemonsList([data]);
           setError("");
