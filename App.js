@@ -7,6 +7,7 @@ import { getPokemons } from "./src/api/PokeAPI";
 
 //Screen's
 import Home from "./src/screens/HomeScreen";
+import DetailsScreen from "./src/screens/DetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ export default class App extends Component {
             component={Home}
             initialParams={{ pokemonsList: this.state.pokemonsList }}
           />
+          <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
