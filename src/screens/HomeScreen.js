@@ -13,16 +13,23 @@ import { getPokemons, getPokemonByName } from "../api/PokeAPI";
 let PAGE = 12;
 
 const HomeScreen = ({ route }) => {
+  const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [goSearch, setGoSearch] = useState(false);
   const [pokemonsList, setPokemonsList] = useState(route.params.pokemonsList);
 
   useEffect(() => {
     if (search !== "") {
-      getPokemonByName(search).then((data) => setPokemonsList([data]));
+      getPokemonByName(search).then((data) => {
+        if (data !== undefined) {
+          setPokemonsList([data]);
+          setError("");
+        } else setError("Pokemon não encontrado");
+      });
       setGoSearch(false);
     } else if (search === "") {
       setPokemonsList(route.params.pokemonsList);
+      setError("");
       setGoSearch(false);
       PAGE = 12;
     }
@@ -47,6 +54,10 @@ const HomeScreen = ({ route }) => {
         placeholder="Digite o nome do pokemon"
         style={{ backgroundColor: "grey", margin: 8, padding: 10 }}
       />
+
+      {error != "" ? (
+        <Text style={{ margin: 8, color: "red", fontSize: 18 }}>{error}</Text>
+      ) : null}
 
       <FlatList
         data={pokemonsList}
