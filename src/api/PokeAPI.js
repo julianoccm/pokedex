@@ -26,7 +26,7 @@ const getPokemons = (initial, limit = 12) => {
   });
 };
 
-const getPokemon = (pokemonName) => {
+const getPokemonByName = (pokemonName) => {
   return PokeAPI.get(pokemonName)
     .then((response) => {
       const pokemon = response.data;
@@ -43,7 +43,7 @@ const getPokemon = (pokemonName) => {
 
 module.exports = {
   getPokemons,
-  getPokemon,
+  getPokemonByName,
 };
 
 export default PokeAPI;
