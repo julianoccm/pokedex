@@ -1,9 +1,10 @@
-import { Image, Text, View } from "react-native";
+import { Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 
+import Header from "./src/components/Header";
 import { getPokemonBasicOffset } from "./src/api/PokeAPI";
 
 //Screen's
@@ -36,36 +37,7 @@ export default function App() {
           component={Home}
           initialParams={{ pokemonsList }}
           options={{
-            headerLeft: () => (
-              <View
-                style={{
-                  flexDirection: "row",
-                  flex: 1,
-                  alignItems: "center",
-                  marginLeft: 20,
-                }}
-              >
-                <Image
-                  source={require("./assets/Pokeball.png")}
-                  style={{
-                    width: 35,
-                    height: 35,
-                    margin: 8,
-                    marginTop: 12,
-                    marginRight: 12,
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 30,
-                    fontFamily: "PoppinsBold",
-                    marginTop: 7,
-                  }}
-                >
-                  Pokédex
-                </Text>
-              </View>
-            ),
+            headerLeft: () => <Header />,
             headerTitle: "",
           }}
         />
