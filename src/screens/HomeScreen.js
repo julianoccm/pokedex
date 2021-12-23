@@ -3,6 +3,7 @@ import { Text, View, FlatList } from "react-native";
 
 import { getBasicPokemonByNameId, getPokemonBasicOffset } from "../api/PokeAPI";
 
+import ErrorComponent from "../components/ErrorComponent";
 import PokeCard from "../components/PokeCard";
 import SearchBar from "../components/SearchBar";
 import ButtonPokedex from "../components/ButtonPokedex";
@@ -12,14 +13,14 @@ let PREVIUS_PAGE = 0;
 let pokemonsListRef;
 
 const HomeScreen = ({ route, navigation }) => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
   const [goSearch, setGoSearch] = useState(false);
   const [pokemonsList, setPokemonsList] = useState(route.params.pokemonsList);
 
   const clearStates = () => {
     setPokemonsList(route.params.pokemonsList);
-    setError("");
+    setError(false);
     setGoSearch(false);
     PAGE = 13;
     PREVIUS_PAGE = 0;
@@ -31,7 +32,7 @@ const HomeScreen = ({ route, navigation }) => {
         if (data !== undefined) {
           setPokemonsList([data]);
           setError("");
-        } else setError("Pokemon não encontrado");
+        } else setError(true);
       });
       setGoSearch(false);
     }
@@ -84,29 +85,29 @@ const HomeScreen = ({ route, navigation }) => {
         />
       </View>
 
-      {error != "" ? (
-        <Text style={{ margin: 8, color: "red", fontSize: 18 }}>{error}</Text>
-      ) : null}
-
-      <FlatList
-        numColumns={2}
-        data={pokemonsList}
-        keyExtractor={(pokemon) => pokemon.id}
-        ref={(ref) => (pokemonsListRef = ref)}
-        renderItem={({ item }) => {
-          return (
-            <PokeCard
-              id={item.id}
-              nome={item.nome}
-              typeColor={item.typeColor}
-              urlImage={item.sprite}
-              onPress={() =>
-                navigation.navigate("DetailsScreen", { nome: item.nome })
-              }
-            />
-          );
-        }}
-      />
+      {error ? (
+        <ErrorComponent />
+      ) : (
+        <FlatList
+          numColumns={2}
+          data={pokemonsList}
+          keyExtractor={(pokemon) => pokemon.id}
+          ref={(ref) => (pokemonsListRef = ref)}
+          renderItem={({ item }) => {
+            return (
+              <PokeCard
+                id={item.id}
+                nome={item.nome}
+                typeColor={item.typeColor}
+                urlImage={item.sprite}
+                onPress={() =>
+                  navigation.navigate("DetailsScreen", { nome: item.nome })
+                }
+              />
+            );
+          }}
+        />
+      )}
     </View>
   );
 };
