@@ -6,9 +6,11 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import PokeCard from "../components/PokeCard";
 
 import { getBasicPokemonByNameId, getPokemonBasicOffset } from "../api/PokeAPI";
+
+import PokeCard from "../components/PokeCard";
+import SearchBar from "../components/SearchBar";
 
 let PAGE = 12;
 
@@ -51,15 +53,14 @@ const HomeScreen = ({ route, navigation }) => {
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Proximo</Text>
       </TouchableOpacity>
 
-      <TextInput
+      <SearchBar
         value={search}
         onChangeText={(value) => {
           setSearch(value);
           if (value == "") clearStates();
         }}
         onEndEditing={() => setGoSearch(true)}
-        placeholder="Digite o nome do pokemon"
-        style={{ backgroundColor: "grey", margin: 8, padding: 10 }}
+        placeholder="Digite o nome ou id do Pokémon"
       />
 
       {error != "" ? (
