@@ -2,6 +2,7 @@ import { Image, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 
 import { getPokemonBasicOffset } from "./src/api/PokeAPI";
 
@@ -14,13 +15,18 @@ const Stack = createStackNavigator();
 export default function App() {
   const [pokemonsList, setPokemonsList] = useState([]);
 
+  const [loaded] = useFonts({
+    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
+    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
+  });
+
   useEffect(() => {
     getPokemonBasicOffset(1, 12).then((data) => {
       setPokemonsList(() => data.sort((a, b) => a.id - b.id));
     });
   }, []);
 
-  if (pokemonsList.length != 12) return <Text>Carregando...</Text>;
+  if (pokemonsList.length != 12 || !loaded) return <Text>Carregando...</Text>;
 
   return (
     <NavigationContainer>
@@ -49,7 +55,13 @@ export default function App() {
                     marginRight: 12,
                   }}
                 />
-                <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+                <Text
+                  style={{
+                    fontSize: 30,
+                    fontFamily: "PoppinsBold",
+                    marginTop: 7,
+                  }}
+                >
                   Pokédex
                 </Text>
               </View>

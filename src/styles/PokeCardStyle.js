@@ -36,5 +36,6 @@ export const PokeCardNameContainer = styled.View`
 
 export const PokeCardName = styled.Text`
   font-size: 20px;
+  font-family: "PoppinsRegular";
   color: white;
 `;

@@ -14,6 +14,8 @@ export const SearchBarTextInput = styled.TextInput`
   flex: 1;
   height: 100%;
   font-size: 19px;
+  font-family: "PoppinsRegular";
+  padding-top: 8px;
   color: black;
   padding-left: 10px;
 `;
