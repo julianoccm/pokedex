@@ -60,7 +60,7 @@ const HomeScreen = ({ route, navigation }) => {
           if (value == "") clearStates();
         }}
         onEndEditing={() => setGoSearch(true)}
-        placeholder="Digite o nome ou id do Pokémon"
+        placeholder="Digite o nome ou id"
       />
 
       {error != "" ? (

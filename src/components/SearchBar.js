@@ -20,8 +20,6 @@ const SearchBar = ({ value, onChangeText, onEndEditing, placeholder }) => {
         onChangeText={onChangeText}
         onEndEditing={onEndEditing}
         placeholder={placeholder}
-        numberOfLines={2}
-        multiline
       />
     </SearchBarContainer>
   );
