@@ -9,6 +9,7 @@ import ButtonPokedex from "../components/ButtonPokedex";
 
 let PAGE = 13;
 let PREVIUS_PAGE = 0;
+let pokemonsListRef;
 
 const HomeScreen = ({ route, navigation }) => {
   const [error, setError] = useState("");
@@ -52,6 +53,8 @@ const HomeScreen = ({ route, navigation }) => {
         <ButtonPokedex
           arrowDirection="left"
           onPress={() => {
+            pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
+
             if (PREVIUS_PAGE <= 0) {
               clearStates();
               return;
@@ -70,6 +73,8 @@ const HomeScreen = ({ route, navigation }) => {
         <ButtonPokedex
           arrowDirection="right"
           onPress={() => {
+            pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
+
             getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
               setPokemonsList(() => data.sort((a, b) => a.id - b.id));
             });
@@ -87,6 +92,7 @@ const HomeScreen = ({ route, navigation }) => {
         numColumns={2}
         data={pokemonsList}
         keyExtractor={(pokemon) => pokemon.id}
+        ref={(ref) => (pokemonsListRef = ref)}
         renderItem={({ item }) => {
           return (
             <PokeCard
