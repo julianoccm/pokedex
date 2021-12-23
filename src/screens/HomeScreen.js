@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
 
 import { getBasicPokemonByNameId, getPokemonBasicOffset } from "../api/PokeAPI";
+import NextButton from "../components/NextButton";
 
 import PokeCard from "../components/PokeCard";
 import SearchBar from "../components/SearchBar";
@@ -41,18 +36,6 @@ const HomeScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ marginBottom: 140 }}>
-      <TouchableOpacity
-        style={{ backgroundColor: "#8259e3", padding: 10, margin: 8 }}
-        onPress={() => {
-          getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
-            setPokemonsList(() => data.sort((a, b) => a.id - b.id));
-          });
-          PAGE += 12;
-        }}
-      >
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Proximo</Text>
-      </TouchableOpacity>
-
       <SearchBar
         value={search}
         onChangeText={(value) => {
@@ -61,6 +44,15 @@ const HomeScreen = ({ route, navigation }) => {
         }}
         onEndEditing={() => setGoSearch(true)}
         placeholder="Digite o nome ou id"
+      />
+
+      <NextButton
+        onPress={() => {
+          getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
+            setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+          });
+          PAGE += 12;
+        }}
       />
 
       {error != "" ? (
