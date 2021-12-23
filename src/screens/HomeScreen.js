@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import { Text, View, FlatList } from "react-native";
 
 import { getBasicPokemonByNameId, getPokemonBasicOffset } from "../api/PokeAPI";
-import NextButton from "../components/NextButton";
 
 import PokeCard from "../components/PokeCard";
 import SearchBar from "../components/SearchBar";
+import ButtonPokedex from "../components/ButtonPokedex";
 
-let PAGE = 12;
+let PAGE = 13;
+let PREVIUS_PAGE = 0;
 
 const HomeScreen = ({ route, navigation }) => {
   const [error, setError] = useState("");
@@ -19,7 +20,8 @@ const HomeScreen = ({ route, navigation }) => {
     setPokemonsList(route.params.pokemonsList);
     setError("");
     setGoSearch(false);
-    PAGE = 12;
+    PAGE = 13;
+    PREVIUS_PAGE = 0;
   };
 
   useEffect(() => {
@@ -46,14 +48,36 @@ const HomeScreen = ({ route, navigation }) => {
         placeholder="Digite o nome ou id"
       />
 
-      <NextButton
-        onPress={() => {
-          getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
-            setPokemonsList(() => data.sort((a, b) => a.id - b.id));
-          });
-          PAGE += 12;
-        }}
-      />
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <ButtonPokedex
+          arrowDirection="left"
+          onPress={() => {
+            if (PREVIUS_PAGE <= 0) {
+              clearStates();
+              return;
+            }
+
+            getPokemonBasicOffset(PREVIUS_PAGE - 11, PREVIUS_PAGE).then(
+              (data) => {
+                setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+              }
+            );
+
+            PREVIUS_PAGE -= 12;
+            PAGE -= 12;
+          }}
+        />
+        <ButtonPokedex
+          arrowDirection="right"
+          onPress={() => {
+            getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
+              setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+            });
+            PAGE += 12;
+            PREVIUS_PAGE += 12;
+          }}
+        />
+      </View>
 
       {error != "" ? (
         <Text style={{ margin: 8, color: "red", fontSize: 18 }}>{error}</Text>

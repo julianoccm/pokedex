@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Image, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -29,6 +29,33 @@ export default function App() {
           name="Home"
           component={Home}
           initialParams={{ pokemonsList }}
+          options={{
+            headerLeft: () => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  alignItems: "center",
+                  marginLeft: 20,
+                }}
+              >
+                <Image
+                  source={require("./assets/Pokeball.png")}
+                  style={{
+                    width: 35,
+                    height: 35,
+                    margin: 8,
+                    marginTop: 12,
+                    marginRight: 12,
+                  }}
+                />
+                <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+                  Pokédex
+                </Text>
+              </View>
+            ),
+            headerTitle: "",
+          }}
         />
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
       </Stack.Navigator>
