@@ -42,7 +42,7 @@ export const TypeTagContainer = styled.View`
 
 export const TypeTag = styled.Text`
   background-color: ${(props) => props.tagColor};
-  width: 95px;
+  width: 100px;
   height: 40px;
   padding-top: 3px;
   text-align: center;
