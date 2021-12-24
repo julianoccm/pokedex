@@ -40,7 +40,7 @@ const HomeScreen = ({ route, navigation }) => {
   }, [goSearch]);
 
   return (
-    <View style={{ marginBottom: 160 }}>
+    <View style={{ marginBottom: 150 }}>
       <SearchBar
         value={search}
         onChangeText={(value) => {
@@ -119,21 +119,6 @@ const HomeScreen = ({ route, navigation }) => {
           }}
         />
       )}
-
-      <Text
-        style={{
-          fontFamily: "PoppinsBold",
-          fontSize: 16,
-          alignSelf: "center",
-          backgroundColor: "white",
-          paddingVertical: 10,
-          width: "100%",
-          textAlign: "center",
-          color: "#666",
-        }}
-      >
-        Créditos: Juliano Colere Ceccon Moreira
-      </Text>
     </View>
   );
 };
