@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  LogBox,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import { getPokemonByName } from "../api/PokeAPI";
@@ -22,6 +29,10 @@ import ProgressBar from "../components/ProgressBar";
 const DetailsScreen = ({ route, navigation }) => {
   const { nome } = route.params;
   const [pokemonInfo, setPokemonInfo] = useState(null);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+  }, []);
 
   useEffect(() => {
     getPokemonByName(nome).then((data) => {
