@@ -1,88 +1,124 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { Text, View, FlatList } from "react-native";
 
-import { getPokemons, getBasicPokemonByName } from "../api/PokeAPI";
+import { getBasicPokemonByNameId, getPokemonBasicOffset } from "../api/PokeAPI";
 
-let PAGE = 12;
+import ErrorComponent from "../components/ErrorComponent";
+import PokeCard from "../components/PokeCard";
+import SearchBar from "../components/SearchBar";
+import ButtonPokedex from "../components/ButtonPokedex";
+
+let PAGE = 13;
+let PREVIUS_PAGE = 0;
+let pokemonsListRef;
 
 const HomeScreen = ({ route, navigation }) => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
   const [goSearch, setGoSearch] = useState(false);
   const [pokemonsList, setPokemonsList] = useState(route.params.pokemonsList);
 
   const clearStates = () => {
     setPokemonsList(route.params.pokemonsList);
-    setError("");
+    setError(false);
     setGoSearch(false);
-    PAGE = 12;
+    setSearch("");
+    PAGE = 13;
+    PREVIUS_PAGE = 0;
   };
 
   useEffect(() => {
     if (search !== "") {
-      getBasicPokemonByName(search.toLowerCase()).then((data) => {
+      getBasicPokemonByNameId(search.toLowerCase()).then((data) => {
         if (data !== undefined) {
           setPokemonsList([data]);
           setError("");
-        } else setError("Pokemon não encontrado");
+        } else setError(true);
       });
       setGoSearch(false);
     }
   }, [goSearch]);
 
   return (
-    <View style={{ marginBottom: 140 }}>
-      <TouchableOpacity
-        style={{ backgroundColor: "#8259e3", padding: 10, margin: 8 }}
-        onPress={() => {
-          getPokemons(PAGE).then((data) => setPokemonsList(data));
-          PAGE += 12;
-        }}
-      >
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Proximo</Text>
-      </TouchableOpacity>
-
-      <TextInput
+    <View style={{ marginBottom: 150 }}>
+      <SearchBar
         value={search}
         onChangeText={(value) => {
           setSearch(value);
           if (value == "") clearStates();
         }}
         onEndEditing={() => setGoSearch(true)}
-        placeholder="Digite o nome do pokemon"
-        style={{ backgroundColor: "grey", margin: 8, padding: 10 }}
+        placeholder="Digite o nome ou id"
       />
 
-      {error != "" ? (
-        <Text style={{ margin: 8, color: "red", fontSize: 18 }}>{error}</Text>
-      ) : null}
+      {error || pokemonsList.length == 1 ? (
+        <View style={{ height: 48 }}>
+          <ButtonPokedex text="Voltar" onPress={clearStates} />
+        </View>
+      ) : (
+        <View
+          style={{ flexDirection: "row", justifyContent: "center", height: 48 }}
+        >
+          <ButtonPokedex
+            showArrow={true}
+            arrowDirection="left"
+            onPress={() => {
+              pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
 
-      <FlatList
-        data={pokemonsList}
-        keyExtractor={(pokemon) => pokemon.id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              style={{ borderWidth: 2, margin: 8, padding: 5 }}
-              onPress={() => navigation.navigate("DetailsScreen", {nome: item.nome})}
-            >
-              <Text>{item.id}</Text>
-              <Text>{item.nome}</Text>
-              <Image
-                source={{ uri: item.sprite }}
-                style={{ width: 50, height: 50 }}
+              if (PREVIUS_PAGE <= 0) {
+                clearStates();
+                return;
+              }
+
+              getPokemonBasicOffset(PREVIUS_PAGE - 11, PREVIUS_PAGE).then(
+                (data) => {
+                  setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+                }
+              );
+
+              PREVIUS_PAGE -= 12;
+              PAGE -= 12;
+            }}
+          />
+          <ButtonPokedex
+            showArrow={true}
+            arrowDirection="right"
+            onPress={() => {
+              pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
+
+              getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
+                setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+              });
+              PAGE += 12;
+              PREVIUS_PAGE += 12;
+            }}
+          />
+        </View>
+      )}
+
+      {error ? (
+        <ErrorComponent />
+      ) : (
+        <FlatList
+          numColumns={2}
+          data={pokemonsList}
+          keyExtractor={(pokemon) => pokemon.id}
+          ref={(ref) => (pokemonsListRef = ref)}
+          renderItem={({ item }) => {
+            return (
+              <PokeCard
+                id={item.id}
+                nome={item.nome}
+                typeColor={item.typeColor}
+                urlImage={item.sprite}
+                onPress={() =>
+                  navigation.navigate("DetailsScreen", { nome: item.nome })
+                }
               />
-            </TouchableOpacity>
-          );
-        }}
-      />
+            );
+          }}
+        />
+      )}
     </View>
   );
 };

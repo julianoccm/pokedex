@@ -1,9 +1,11 @@
 import { Text } from "react-native";
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { useFonts } from "expo-font";
 
-import { getPokemons } from "./src/api/PokeAPI";
+import Header from "./src/components/Header";
+import { getPokemonBasicOffset } from "./src/api/PokeAPI";
 
 //Screen's
 import Home from "./src/screens/HomeScreen";
@@ -11,31 +13,40 @@ import DetailsScreen from "./src/screens/DetailsScreen";
 
 const Stack = createStackNavigator();
 
-export default class App extends Component {
-  state = {
-    pokemonsList: null,
-  };
+export default function App() {
+  const [pokemonsList, setPokemonsList] = useState([]);
 
-  componentDidMount() {
-    getPokemons(0).then((pokemons) =>
-      this.setState({ pokemonsList: pokemons })
-    );
-  }
+  const [loaded] = useFonts({
+    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
+    PoppinsBold: require("./assets/fonts/Poppins-Bold.ttf"),
+  });
 
-  render() {
-    if (this.state.pokemonsList == null) return <Text>Carregando...</Text>;
+  useEffect(() => {
+    getPokemonBasicOffset(1, 12).then((data) => {
+      setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+    });
+  }, []);
 
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            initialParams={{ pokemonsList: this.state.pokemonsList }}
-          />
-          <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+  if (pokemonsList.length != 12 || !loaded) return <Text>Carregando...</Text>;
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          initialParams={{ pokemonsList }}
+          options={{
+            headerLeft: () => <Header />,
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="DetailsScreen"
+          component={DetailsScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
