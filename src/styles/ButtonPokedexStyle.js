@@ -9,6 +9,11 @@ export const ButtonPokedexContainer = styled.TouchableOpacity`
   align-items: center;
   margin: 8px;
   margin-top: 2px;
-  width: 120px;
-  height: 40px;
+  flex: 1;
+`;
+
+export const ButtonPokedexText = styled.Text`
+  font-family: "PoppinsBold";
+  font-size: 18px;
+  color: #666;
 `;

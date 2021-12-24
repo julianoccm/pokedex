@@ -22,6 +22,7 @@ const HomeScreen = ({ route, navigation }) => {
     setPokemonsList(route.params.pokemonsList);
     setError(false);
     setGoSearch(false);
+    setSearch("");
     PAGE = 13;
     PREVIUS_PAGE = 0;
   };
@@ -50,40 +51,50 @@ const HomeScreen = ({ route, navigation }) => {
         placeholder="Digite o nome ou id"
       />
 
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <ButtonPokedex
-          arrowDirection="left"
-          onPress={() => {
-            pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
+      {error || pokemonsList.length == 1 ? (
+        <View style={{ height: 48 }}>
+          <ButtonPokedex text="Voltar" onPress={clearStates} />
+        </View>
+      ) : (
+        <View
+          style={{ flexDirection: "row", justifyContent: "center", height: 48 }}
+        >
+          <ButtonPokedex
+            showArrow={true}
+            arrowDirection="left"
+            onPress={() => {
+              pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
 
-            if (PREVIUS_PAGE <= 0) {
-              clearStates();
-              return;
-            }
-
-            getPokemonBasicOffset(PREVIUS_PAGE - 11, PREVIUS_PAGE).then(
-              (data) => {
-                setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+              if (PREVIUS_PAGE <= 0) {
+                clearStates();
+                return;
               }
-            );
 
-            PREVIUS_PAGE -= 12;
-            PAGE -= 12;
-          }}
-        />
-        <ButtonPokedex
-          arrowDirection="right"
-          onPress={() => {
-            pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
+              getPokemonBasicOffset(PREVIUS_PAGE - 11, PREVIUS_PAGE).then(
+                (data) => {
+                  setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+                }
+              );
 
-            getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
-              setPokemonsList(() => data.sort((a, b) => a.id - b.id));
-            });
-            PAGE += 12;
-            PREVIUS_PAGE += 12;
-          }}
-        />
-      </View>
+              PREVIUS_PAGE -= 12;
+              PAGE -= 12;
+            }}
+          />
+          <ButtonPokedex
+            showArrow={true}
+            arrowDirection="right"
+            onPress={() => {
+              pokemonsListRef.scrollToOffset({ offset: 0, animated: true });
+
+              getPokemonBasicOffset(PAGE, PAGE + 11).then((data) => {
+                setPokemonsList(() => data.sort((a, b) => a.id - b.id));
+              });
+              PAGE += 12;
+              PREVIUS_PAGE += 12;
+            }}
+          />
+        </View>
+      )}
 
       {error ? (
         <ErrorComponent />
