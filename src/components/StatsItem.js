@@ -9,16 +9,20 @@ const StatsItem = ({ value, cor, title }) => {
         flexDirection: "row",
         alignItems: "center",
         flex: 1,
-        marginVertical: 1
+        marginVertical: 1,
       }}
     >
-      <View style={{ flexDirection: "row", flex: 1 }}>
+      <View style={{ flexDirection: "row", flex: 2 }}>
         <View style={{ alignItems: "center", flex: 1 }}>
           <StatsTitle textColor={cor}>{title}</StatsTitle>
         </View>
-        <StatsValueText>{value}</StatsValueText>
+        <View style={{ flex: 1, alignItems: "center" }}>
+          <StatsValueText>{value}</StatsValueText>
+        </View>
       </View>
-      <ProgressBar cor={cor} value={value} />
+      <View style={{ width: 200, height: 20 }}>
+        <ProgressBar cor={cor} value={value} />
+      </View>
     </View>
   );
 };

@@ -160,27 +160,27 @@ const DetailsScreen = ({ route, navigation }) => {
             <StatsItem
               cor={pokemonInfo.tipoPrincipal.cor}
               value={pokemonInfo.status.attack}
-              title="ATAQUE"
+              title="ATK"
             />
             <StatsItem
               cor={pokemonInfo.tipoPrincipal.cor}
               value={pokemonInfo.status.defense}
-              title="DEFESA"
+              title="DEF"
             />
             <StatsItem
               cor={pokemonInfo.tipoPrincipal.cor}
               value={pokemonInfo.status.specialAttack}
-              title="ATAQUE S."
+              title="ATKS"
             />
             <StatsItem
               cor={pokemonInfo.tipoPrincipal.cor}
               value={pokemonInfo.status.specialDefense}
-              title="DEFESA S."
+              title="DEFS"
             />
             <StatsItem
               cor={pokemonInfo.tipoPrincipal.cor}
               value={pokemonInfo.status.speed}
-              title="VELOCIDADE"
+              title="VEL"
             />
           </View>
         </View>
