@@ -19,10 +19,13 @@ const ErrorComponent = () => {
           fontFamily: "PoppinsBold",
           fontSize: 18,
           textAlign: "center",
-          marginTop: 10,
+          margin: 10,
+          marginBottom: 0,
         }}
       >
-        Ops nenhum Pokémon encontrado, parece que a Equipe Rocket venceu novamente
+        Ops, nenhum Pokémon encontrado, parece que a{" "}
+        <Text style={{ color: "#f2440a" }}>Equipe Rocket</Text> venceu
+        novamente!
       </Text>
     </View>
   );
