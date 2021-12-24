@@ -10,6 +10,7 @@ import { getPokemonBasicOffset } from "./src/api/PokeAPI";
 //Screen's
 import Home from "./src/screens/HomeScreen";
 import DetailsScreen from "./src/screens/DetailsScreen";
+import Credits from "./src/components/Credits";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export default function App() {
           initialParams={{ pokemonsList }}
           options={{
             headerLeft: () => <Header />,
+            headerRight: () => <Credits />,
             headerTitle: "",
           }}
         />
