@@ -211,7 +211,6 @@ const DetailsScreen = ({ route, navigation }) => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: 20,
-            marginBottom: 100,
           }}
         >
           <Title textColor={pokemonInfo.tipoPrincipal.cor}>Evoluções</Title>
