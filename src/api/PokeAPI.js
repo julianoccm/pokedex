@@ -13,6 +13,7 @@ const getBasicPokemonByNameId = (pokemonID) => {
       return {
         id: pokemon.id,
         nome: pokemon.forms[0].name,
+        renderName: pokemon.forms[0].name.charAt(0).toUpperCase() + pokemon.forms[0].name.slice(1),
         url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.forms[0].name,
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
         typeColor: handlePokemonType(pokemon.types[0].type.name).cor,
@@ -45,6 +46,7 @@ const getPokemonByName = (pokemonName) => {
       return {
         id: pokemon.id,
         nome: pokemon.forms[0].name,
+        renderName: pokemon.forms[0].name.charAt(0).toUpperCase() + pokemon.forms[0].name.slice(1),
         url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.forms[0].name,
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
         tipo: handlePokemonType(pokemon.types[0].type.name),

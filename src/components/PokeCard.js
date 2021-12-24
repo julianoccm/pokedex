@@ -15,9 +15,7 @@ const PokeCard = ({ id, nome, urlImage, onPress, typeColor }) => {
       <PokeCardId textColor={typeColor}>#{id}</PokeCardId>
       <PokeCardImage source={{ uri: urlImage }} />
       <PokeCardNameContainer bgColor={typeColor}>
-        <PokeCardName>
-          {nome.charAt(0).toUpperCase() + nome.slice(1)}
-        </PokeCardName>
+        <PokeCardName>{nome}</PokeCardName>
       </PokeCardNameContainer>
     </PokeCardContainer>
   );
