@@ -68,8 +68,8 @@ const DetailsScreen = ({ route, navigation }) => {
       <Image
         source={require("../../assets/Pokeball-White.png")}
         style={{
-          width: "60%",
-          height: "25%", 
+          width: 250,
+          height: 250, 
           position: "absolute",
           zIndex: -1,
           right: 10,
