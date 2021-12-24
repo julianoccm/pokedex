@@ -22,7 +22,7 @@ const ErrorComponent = () => {
           marginTop: 10,
         }}
       >
-        Ops, parece que a Equipe Rocket venceu novamente!
+        Ops nenhum Pokémon encontrado, parece que a Equipe Rocket venceu novamente
       </Text>
     </View>
   );
