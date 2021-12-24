@@ -26,6 +26,7 @@ import {
 import { FlatList } from "react-native-gesture-handler";
 import ProgressBar from "../components/ProgressBar";
 import StatsItem from "../components/StatsItem";
+import Loading from "../components/Loading";
 
 const DetailsScreen = ({ route, navigation }) => {
   const { nome } = route.params;
@@ -43,7 +44,7 @@ const DetailsScreen = ({ route, navigation }) => {
     });
   }, []);
 
-  if (pokemonInfo == null) return <Text>Carregando</Text>;
+  if (pokemonInfo == null) return <Loading />;
 
   return (
     <ScrollView
@@ -69,15 +70,21 @@ const DetailsScreen = ({ route, navigation }) => {
         source={require("../../assets/Pokeball-White.png")}
         style={{
           width: 250,
-          height: 250, 
+          height: 250,
           position: "absolute",
           zIndex: -1,
           right: 10,
-          top: 20
+          top: 20,
         }}
       />
 
-      <View style={{ justifyContent: "center", alignItems: "center", marginTop: 10 }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 10,
+        }}
+      >
         <Image
           source={{ uri: pokemonInfo.sprite }}
           style={{ height: 270, width: 270, zIndex: 1 }}

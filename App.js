@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 
 import Header from "./src/components/Header";
+import Loading from "./src/components/Loading";
+
 import { getPokemonBasicOffset } from "./src/api/PokeAPI";
 
 //Screen's
@@ -28,7 +30,7 @@ export default function App() {
     });
   }, []);
 
-  if (pokemonsList.length != 12 || !loaded) return <Text>Carregando...</Text>;
+  if (pokemonsList.length != 12 || !loaded) return <Loading />;
 
   return (
     <NavigationContainer>
