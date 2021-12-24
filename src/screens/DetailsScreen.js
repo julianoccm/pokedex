@@ -105,7 +105,7 @@ const DetailsScreen = ({ route, navigation }) => {
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
                   source={require("../../assets/Balanca.png")}
-                  style={{ height: 30, width: 30, marginRight: 15 }}
+                  style={{ height: 20, width: 20, marginRight: 15 }}
                 />
                 <AboutValueText>{pokemonInfo.peso} kg</AboutValueText>
               </View>
@@ -114,7 +114,7 @@ const DetailsScreen = ({ route, navigation }) => {
 
             <Image
               source={require("../../assets/Divider.png")}
-              style={{ height: 60, width: 3, marginHorizontal: 25 }}
+              style={{ height: 30, width: 3, marginHorizontal: 25 }}
             />
 
             <View style={{ alignItems: "center", justifyContent: "center" }}>
