@@ -2,34 +2,34 @@ import React, { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
-  Text,
+  FlatList,
   TouchableOpacity,
   View,
   LogBox,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-import { getPokemonByName } from "../api/PokeAPI";
+import { getPokemonByName, getEvolutionsByName } from "../api/PokeAPI";
 import {
   AboutValueText,
   InfoContainer,
   PokemonHeaderInfo,
   PokemonID,
   PokemonName,
-  StatsTitle,
-  StatsValueText,
   SubTitle,
   Title,
   TypeTag,
   TypeTagContainer,
 } from "../styles/DetailsScreenStyles";
-import { FlatList } from "react-native-gesture-handler";
-import ProgressBar from "../components/ProgressBar";
+
 import StatsItem from "../components/StatsItem";
 import Loading from "../components/Loading";
 
+let scrollViewRef;
+
 const DetailsScreen = ({ route, navigation }) => {
-  const { nome } = route.params;
+  const [pokemonName, setPokemonName] = useState(route.params.nome);
+  const [evolutions, setEvolutions] = useState(null);
   const [pokemonInfo, setPokemonInfo] = useState(null);
 
   useEffect(() => {
@@ -37,18 +37,20 @@ const DetailsScreen = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    getPokemonByName(nome).then((data) => {
+    getPokemonByName(pokemonName).then((data) => {
       if (data !== undefined) {
         setPokemonInfo(data);
       }
     });
-  }, []);
+    getEvolutionsByName(pokemonName).then((data) => setEvolutions(data));
+  }, [pokemonName]);
 
-  if (pokemonInfo == null) return <Loading />;
+  if (pokemonInfo == null || evolutions == null) return <Loading />;
 
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: pokemonInfo.tipoPrincipal.cor }}
+      ref={(ref) => (scrollViewRef = ref)}
     >
       <PokemonHeaderInfo>
         <View
@@ -202,6 +204,49 @@ const DetailsScreen = ({ route, navigation }) => {
               title="VEL"
             />
           </View>
+        </View>
+
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 20,
+          }}
+        >
+          <Title textColor={pokemonInfo.tipoPrincipal.cor}>Evoluções</Title>
+
+          <FlatList
+            horizontal
+            data={evolutions}
+            style={{ marginTop: 5 }}
+            keyExtractor={(pokemon) => pokemon.id}
+            ItemSeparatorComponent={() => {
+              return (
+                <View style={{ justifyContent: "center", marginHorizontal: 2 }}>
+                  <AntDesign name={"arrowright"} size={25} color="#666" />
+                </View>
+              );
+            }}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setPokemonName(item.nome);
+                    scrollViewRef.scrollTo({ y: 0, animated: true });
+                  }}
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Image
+                    source={{ uri: item.sprite }}
+                    style={{ width: 80, height: 80 }}
+                  />
+                  <AboutValueText style={{ fontSize: 17 }}>
+                    {item.renderName}
+                  </AboutValueText>
+                </TouchableOpacity>
+              );
+            }}
+          />
         </View>
       </InfoContainer>
     </ScrollView>

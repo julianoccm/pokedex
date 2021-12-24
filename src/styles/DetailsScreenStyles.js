@@ -4,7 +4,7 @@ export const PokemonHeaderInfo = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 40px;
   padding-left: 25px;
   padding-right: 25px;
 `;
@@ -28,7 +28,7 @@ export const InfoContainer = styled.View`
   background-color: white;
   padding-top: 17%;
   width: 95%;
-  height: 65%;
+  height: 70%;
   border-radius: 20px;
   margin: 10px;
   bottom: 80px;
