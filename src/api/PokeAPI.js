@@ -1,5 +1,6 @@
 import axios from "axios";
 import { handlePokemonType } from "./PokemonTypes";
+import { handleStats } from "./PokemonStats";
 
 const PokeAPI = axios.create({
   baseURL: "https://pokeapi.co/api/v2/pokemon",
@@ -13,7 +14,9 @@ const getBasicPokemonByNameId = (pokemonID) => {
       return {
         id: pokemon.id,
         nome: pokemon.forms[0].name,
-        renderName: pokemon.forms[0].name.charAt(0).toUpperCase() + pokemon.forms[0].name.slice(1),
+        renderName:
+          pokemon.forms[0].name.charAt(0).toUpperCase() +
+          pokemon.forms[0].name.slice(1),
         url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.forms[0].name,
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
         typeColor: handlePokemonType(pokemon.types[0].type.name).cor,
@@ -46,13 +49,20 @@ const getPokemonByName = (pokemonName) => {
       return {
         id: pokemon.id,
         nome: pokemon.forms[0].name,
-        renderName: pokemon.forms[0].name.charAt(0).toUpperCase() + pokemon.forms[0].name.slice(1),
+        renderName:
+          pokemon.forms[0].name.charAt(0).toUpperCase() +
+          pokemon.forms[0].name.slice(1),
         url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.forms[0].name,
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
-        tipo: handlePokemonType(pokemon.types[0].type.name),
-        peso: pokemon.weight,
-        altura: pokemon.height,
-        abilidade: pokemon.abilities,
+        tipoPrincipal: handlePokemonType(pokemon.types[0].type.name),
+        tipoSecundario:
+          pokemon.types[1] != null
+            ? handlePokemonType(pokemon.types[1].type.name)
+            : null,
+        peso: pokemon.weight / 10,
+        altura: pokemon.height / 10,
+        habilidades: pokemon.abilities,
+        status: handleStats(pokemon.stats),
       };
     })
     .catch((error) => {});
