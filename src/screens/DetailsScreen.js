@@ -240,7 +240,7 @@ const DetailsScreen = ({ route, navigation }) => {
                     source={{ uri: item.sprite }}
                     style={{ width: 80, height: 80 }}
                   />
-                  <AboutValueText style={{ fontSize: 18 }}>
+                  <AboutValueText style={{ fontSize: 17 }}>
                     {item.renderName}
                   </AboutValueText>
                 </TouchableOpacity>
