@@ -47,7 +47,7 @@ const getPokemonByName = (pokemonName) => {
         nome: pokemon.forms[0].name,
         url: "https://pokeapi.co/api/v2/pokemon/" + pokemon.forms[0].name,
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`,
-        tipo: pokemon.types[0].type,
+        tipo: handlePokemonType(pokemon.types[0].type.name),
         peso: pokemon.weight,
         altura: pokemon.height,
         abilidade: pokemon.abilities,
