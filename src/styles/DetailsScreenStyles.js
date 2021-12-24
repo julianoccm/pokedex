@@ -77,13 +77,14 @@ export const AboutValueText = styled.Text`
 export const StatsTitle = styled.Text`
   font-family: "PoppinsBold";
   font-size: 15px;
+  text-align: center;
+  margin: 0px 20px 0px 20px;
   color: ${(props) => props.textColor};
 `;
 
 export const StatsValueText = styled.Text`
   font-family: "PoppinsRegular";
   font-size: 15px;
-  margin-top: 2px;
-  margin-right: 12px;
+  margin-right: 20px;
   color: black;
 `;

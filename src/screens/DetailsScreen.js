@@ -25,6 +25,7 @@ import {
 } from "../styles/DetailsScreenStyles";
 import { FlatList } from "react-native-gesture-handler";
 import ProgressBar from "../components/ProgressBar";
+import StatsItem from "../components/StatsItem";
 
 const DetailsScreen = ({ route, navigation }) => {
   const { nome } = route.params;
@@ -150,72 +151,37 @@ const DetailsScreen = ({ route, navigation }) => {
           <Title textColor={pokemonInfo.tipoPrincipal.cor}>
             Status Básicos
           </Title>
-          <View style={{ flexDirection: "row", marginTop: 10 }}>
-            <View style={{ alignItems: "center", marginLeft: 12 }}>
-              <StatsTitle textColor={pokemonInfo.tipoPrincipal.cor}>
-                HP
-              </StatsTitle>
-              <StatsTitle textColor={pokemonInfo.tipoPrincipal.cor}>
-                ATAQUE
-              </StatsTitle>
-              <StatsTitle textColor={pokemonInfo.tipoPrincipal.cor}>
-                DEFESA
-              </StatsTitle>
-              <StatsTitle textColor={pokemonInfo.tipoPrincipal.cor}>
-                ATAQUE S.
-              </StatsTitle>
-              <StatsTitle textColor={pokemonInfo.tipoPrincipal.cor}>
-                DEFESA S.
-              </StatsTitle>
-              <StatsTitle textColor={pokemonInfo.tipoPrincipal.cor}>
-                VELOCIDADE
-              </StatsTitle>
-            </View>
-
-            <Image
-              source={require("../../assets/Divider.png")}
-              style={{ height: "98%", width: 3, marginHorizontal: 20 }}
+          <View style={{margin: 10}}>
+            <StatsItem
+              cor={pokemonInfo.tipoPrincipal.cor}
+              value={pokemonInfo.status.hp}
+              title="HP"
             />
-
-            <View>
-              <StatsValueText>{pokemonInfo.status.hp}</StatsValueText>
-              <StatsValueText>{pokemonInfo.status.attack}</StatsValueText>
-              <StatsValueText>{pokemonInfo.status.defense}</StatsValueText>
-              <StatsValueText>
-                {pokemonInfo.status.specialAttack}
-              </StatsValueText>
-              <StatsValueText>
-                {pokemonInfo.status.specialDefense}
-              </StatsValueText>
-              <StatsValueText>{pokemonInfo.status.speed}</StatsValueText>
-            </View>
-
-            <View>
-              <ProgressBar
-                cor={pokemonInfo.tipoPrincipal.cor}
-                value={pokemonInfo.status.hp}
-              />
-              <ProgressBar
-                cor={pokemonInfo.tipoPrincipal.cor}
-                value={pokemonInfo.status.attack}
-              />
-              <ProgressBar
-                cor={pokemonInfo.tipoPrincipal.cor}
-                value={pokemonInfo.status.defense}
-              />
-              <ProgressBar
-                cor={pokemonInfo.tipoPrincipal.cor}
-                value={pokemonInfo.status.specialAttack}
-              />
-              <ProgressBar
-                cor={pokemonInfo.tipoPrincipal.cor}
-                value={pokemonInfo.status.specialDefense}
-              />
-              <ProgressBar
-                cor={pokemonInfo.tipoPrincipal.cor}
-                value={pokemonInfo.status.speed}
-              />
-            </View>
+            <StatsItem
+              cor={pokemonInfo.tipoPrincipal.cor}
+              value={pokemonInfo.status.attack}
+              title="ATAQUE"
+            />
+            <StatsItem
+              cor={pokemonInfo.tipoPrincipal.cor}
+              value={pokemonInfo.status.defense}
+              title="DEFESA"
+            />
+            <StatsItem
+              cor={pokemonInfo.tipoPrincipal.cor}
+              value={pokemonInfo.status.specialAttack}
+              title="ATAQUE S."
+            />
+            <StatsItem
+              cor={pokemonInfo.tipoPrincipal.cor}
+              value={pokemonInfo.status.specialDefense}
+              title="DEFESA S."
+            />
+            <StatsItem
+              cor={pokemonInfo.tipoPrincipal.cor}
+              value={pokemonInfo.status.speed}
+              title="VELOCIDADE"
+            />
           </View>
         </View>
       </InfoContainer>

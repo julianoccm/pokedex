@@ -2,24 +2,23 @@ import React from "react";
 import { View } from "react-native";
 
 const ProgressBar = ({ value, cor }) => {
-  if (value > 100) value = 100;
-  
+  if (value >= 100) value = 92;
+
   return (
     <View
       style={{
-        width: 200,
+        flex: 1,
         height: 20,
         backgroundColor: "white",
         borderColor: cor,
         borderWidth: 2,
         borderRadius: 10,
-        marginTop: 6,
       }}
     >
       <View
         style={{
           width: value * 2,
-          height: 17,
+          height: "106%",
           backgroundColor: cor,
           borderRadius: 10,
         }}
