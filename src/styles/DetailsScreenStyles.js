@@ -11,7 +11,7 @@ export const PokemonHeaderInfo = styled.View`
 
 export const PokemonName = styled.Text`
   font-family: "PoppinsBold";
-  font-size: 34px;
+  font-size: 25px;
   color: white;
   margin-left: 20px;
   margin-top: 8px;

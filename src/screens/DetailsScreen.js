@@ -58,7 +58,7 @@ const DetailsScreen = ({ route, navigation }) => {
           }}
         >
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <AntDesign name={"arrowleft"} size={34} color="#FFF" />
+            <AntDesign name={"arrowleft"} size={28} color="#FFF" />
           </TouchableOpacity>
           <PokemonName>{pokemonInfo.renderName}</PokemonName>
         </View>
