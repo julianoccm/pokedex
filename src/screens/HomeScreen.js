@@ -108,7 +108,7 @@ const HomeScreen = ({ route, navigation }) => {
             return (
               <PokeCard
                 id={item.id}
-                nome={item.nome}
+                nome={item.renderName}
                 typeColor={item.typeColor}
                 urlImage={item.sprite}
                 onPress={() =>
