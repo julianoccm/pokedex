@@ -65,10 +65,22 @@ const DetailsScreen = ({ route, navigation }) => {
         <PokemonID>#{pokemonInfo.id}</PokemonID>
       </PokemonHeaderInfo>
 
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <Image
+        source={require("../../assets/Pokeball-White.png")}
+        style={{
+          width: "60%",
+          height: "25%", 
+          position: "absolute",
+          zIndex: -1,
+          right: 10,
+          top: 20
+        }}
+      />
+
+      <View style={{ justifyContent: "center", alignItems: "center", marginTop: 10 }}>
         <Image
           source={{ uri: pokemonInfo.sprite }}
-          style={{ height: 280, width: 280, zIndex: 1 }}
+          style={{ height: 270, width: 270, zIndex: 1 }}
         />
       </View>
 
@@ -151,7 +163,7 @@ const DetailsScreen = ({ route, navigation }) => {
           <Title textColor={pokemonInfo.tipoPrincipal.cor}>
             Status Básicos
           </Title>
-          <View style={{margin: 10}}>
+          <View style={{ margin: 10 }}>
             <StatsItem
               cor={pokemonInfo.tipoPrincipal.cor}
               value={pokemonInfo.status.hp}
