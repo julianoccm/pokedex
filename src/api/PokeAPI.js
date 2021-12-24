@@ -68,8 +68,47 @@ const getPokemonByName = (pokemonName) => {
     .catch((error) => {});
 };
 
+const getEvolutionsByName = (pokemonName) => {
+  return axios
+    .get("https://pokeapi.co/api/v2/pokemon-species/" + pokemonName)
+    .then(async (response) => {
+      const evolutionChain = response.data.evolution_chain.url;
+      let pokemonEvolutionNames;
+      let pokemonsList = [];
+
+      await axios.get(evolutionChain).then((res) => {
+        let firstPokemon, secondPokemon, thirdPokemon;
+
+        firstPokemon = res.data.chain.species.name;
+
+        res.data.chain.evolves_to.length != 0
+          ? (secondPokemon = res.data.chain.evolves_to[0].species.name)
+          : (secondPokemon = null);
+
+        res.data.chain.evolves_to.length != 0 &&
+        res.data.chain.evolves_to[0].evolves_to.length != 0
+          ? (thirdPokemon =
+              res.data.chain.evolves_to[0].evolves_to[0].species.name)
+          : (thirdPokemon = null);
+
+        pokemonEvolutionNames = [firstPokemon, secondPokemon, thirdPokemon];
+      });
+
+      for (let pokemon of pokemonEvolutionNames) {
+        if (pokemon != null) {
+          await getBasicPokemonByNameId(pokemon).then((data) => {
+            pokemonsList.push(data);
+          });
+        }
+      }
+
+      return pokemonsList;
+    });
+};
+
 module.exports = {
   getPokemonByName,
+  getEvolutionsByName,
   getPokemonBasicOffset,
   getBasicPokemonByNameId,
 };
