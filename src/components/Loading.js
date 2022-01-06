@@ -6,7 +6,7 @@ const Loading = () => {
     <View style={{ backgroundColor: "#181b1d", flex: 1 }}>
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
         <Image
-          source={require("../../assets/Pokeball-Loading.gif")}
+          source={require("../../assets/images/Pokeball-Loading.gif")}
           style={{
             width: 400,
             height: 400,
@@ -15,6 +15,7 @@ const Loading = () => {
         <Text
           style={{
             fontSize: 22,
+            fontFamily: "PoppinsRegular",
             color: "white",
             textAlign: "center",
             marginHorizontal: 10,
