@@ -34,5 +34,3 @@ Para rodar o aplicativo localmente você precisa ter o `node`, `npm`, e `expo-cl
  - Rodar o comando: `expo start`.
  - E escanear o QR Code que aparecer no seu terminal.
  - Pronto!
-
- 
