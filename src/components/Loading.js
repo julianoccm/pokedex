@@ -15,6 +15,7 @@ const Loading = () => {
         <Text
           style={{
             fontSize: 22,
+            fontFamily: "PoppinsRegular",
             color: "white",
             textAlign: "center",
             marginHorizontal: 10,
