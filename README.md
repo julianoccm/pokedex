@@ -1,10 +1,8 @@
 <p align="center">
     <img src="./assets/images/Pokeball.png" width="200px"/>
-    <br/><br/>
-    <b style="font-size: 50px">Pokédex</b>
 </p>
 
----
+<h1>Pokédex</h1>
 
 ## Sobre o intuito do aplicativo
 O aplicativo tem o objetivo de criar uma lista dos Pokémons existentes, utilizando o framework React Native. A principal motivação para o desenvolvimento do aplicativo foi o desafio de criar uma interface com um bom design, e conseguir consumir dados de forma assíncrona.
