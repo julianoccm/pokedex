@@ -12,7 +12,7 @@ const Header = () => {
       }}
     >
       <Image
-        source={require("../../assets/Pokeball.png")}
+        source={require("../../assets/images/Pokeball.png")}
         style={{
           width: 35,
           height: 35,

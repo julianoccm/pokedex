@@ -69,7 +69,7 @@ const DetailsScreen = ({ route, navigation }) => {
       </PokemonHeaderInfo>
 
       <Image
-        source={require("../../assets/Pokeball-White.png")}
+        source={require("../../assets/images/Pokeball-White.png")}
         style={{
           width: 250,
           height: 250,
@@ -125,7 +125,7 @@ const DetailsScreen = ({ route, navigation }) => {
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
-                  source={require("../../assets/Balanca.png")}
+                  source={require("../../assets/images/Balanca.png")}
                   style={{ height: 20, width: 20, marginRight: 15 }}
                 />
                 <AboutValueText>{pokemonInfo.peso} kg</AboutValueText>
@@ -134,14 +134,14 @@ const DetailsScreen = ({ route, navigation }) => {
             </View>
 
             <Image
-              source={require("../../assets/Divider.png")}
+              source={require("../../assets/images/Divider.png")}
               style={{ height: 30, width: 3, marginHorizontal: 25 }}
             />
 
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
-                  source={require("../../assets/Regua.png")}
+                  source={require("../../assets/images/Regua.png")}
                   style={{ height: 30, width: 15, marginRight: 15 }}
                 />
                 <AboutValueText>{pokemonInfo.altura} m</AboutValueText>
