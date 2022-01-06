@@ -11,7 +11,7 @@ const ErrorComponent = () => {
       }}
     >
       <Image
-        source={require("../../assets/404.png")}
+        source={require("../../assets/images/404.png")}
         style={{ width: 350, height: 180 }}
       />
       <Text
